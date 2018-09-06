@@ -2,7 +2,7 @@
     <Page>
         <ActionBar title="Заказы+" class="action-bar" />
         <StackLayout backgroundColor="#3c495e">
-            <Button text="Создать" @tap="newDocument" />
+            <Button text="Создать" @tap="$router.push('/repair-doc')" />
             <Button text="Фильтр" @tap="filter" />
             <Label v-bind:text="status" height="70" />
         </StackLayout>
@@ -29,5 +29,5 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 </style>

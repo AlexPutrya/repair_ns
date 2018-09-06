@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 import Home from '../components/Home';
 import RepairList from '../components/RepairList';
+import RepairDoc from '../components/RepairDoc';
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,13 @@ const router = new VueRouter({
             component: RepairList,
             meta: {
                 title: "Заявки на ремонт"
+            }
+        },
+        {
+            path: '/repair-doc',
+            component: RepairDoc,
+            meta: {
+                title: "Заявка на ремонт"
             }
         },
         {path: '*', redirect: '/home'}  

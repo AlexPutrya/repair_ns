@@ -24,9 +24,11 @@ const actions = {
     filter: ({commit, state}) => {
         action('Статус:', 'Отмена', state.status_list)
             .then(result => {
-                console.log(result);
-                commit('changeStatus', result);
-                console.log(state.status);
+                if(result != "Отмена"){
+                    commit('changeStatus', result);
+                }else {
+                    console.log(result);
+                }
             });
     }
 };
