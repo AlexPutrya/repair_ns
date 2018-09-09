@@ -18,9 +18,6 @@ const mutations = {
 };
 
 const actions = {
-    // changeStatus: ({ commit }) => {
-    //     commit('changeStatus');
-    // },
     filter: ({commit, state}) => {
         action('Статус:', 'Отмена', state.status_list)
             .then(result => {

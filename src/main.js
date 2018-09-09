@@ -12,6 +12,6 @@ new Vue(
     {
     router,
     store,
-    render: h => h(HelloWorld),
+    render: h => h(Home),
 
 }).$start();
