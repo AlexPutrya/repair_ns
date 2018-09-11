@@ -7,6 +7,7 @@ import repair_list from './modules/repair_list';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
+  // Закоментить перед продакшеном для увеличения производительности
   strict: true,
     modules: {
       repair_doc,

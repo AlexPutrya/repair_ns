@@ -1,22 +1,31 @@
 const test_data= [
     {date: '12.09.2018', product: 'Falcon HD43', claim: 'Не работает', status: 'Отправлен'},
     {date: '13.09.2018', product: 'Falcon HD45', claim: 'Не работает', status: 'Отправлен'},
-    {date: '14.09.2018', product: 'Subwoofer CCE', claim: 'Не работает', status: 'Отправлен'}
+    {date: '14.09.2018', product: 'Subwoofer CCE', claim: 'Не работает', status: 'Не завершен'}
 ];
 
 const state = {
-    repair_list: test_data,
-    status_list: ['отправлено', 'принято'],
-    status: "Все",
+    list: test_data,
+    status_list: ['Отправлен', 'Принят', 'Закрыт', 'Не завершен'],
+    status: "Не завершен",
 };
 
+const getters = {
+    // возвращаем отфильтрованный список по статусу
+    repairList(){
+        return state.list.filter(repair => state.status == repair.status);
+    }
+}
+
 const mutations = {
+    // устанавливаем статус из списка
     changeStatus(state, status) {
         state.status = status;
     }
 };
 
 const actions = {
+    // Вызывется диалоговое окно для выбора стутуса
     filter: ({commit, state}) => {
         action('Статус:', 'Отмена', state.status_list)
             .then(result => {
@@ -26,15 +35,12 @@ const actions = {
                     console.log(result);
                 }
             });
-    },
-    repairList: ({state}) => {
-        let new_list = state.repair_list.filter(repair => state.status == repair.status);
-        return new_list;
     }
 };
 
 export default {
     state,
+    getters,
     mutations,
     actions
 };

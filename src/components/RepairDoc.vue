@@ -4,10 +4,10 @@
         <ScrollView>
             <StackLayout>
                 <Label text="Дата/Время" />
-                <TextField editable="false" v-bind:text="datetime" />
+                <TextField editable="false" :text="datetime" />
                 <Button text="Статус" @tap="docFilter"/>
                 <Label text="Статус"/>
-                <TextField editable="false" v-bind:text="status" />
+                <TextField editable="false" :text="status" />
                 <Label text="Звонок клиенту" />
                 <Switch v-model="call_to_client"/>
                 <Label text="Партнер" />
@@ -22,8 +22,8 @@
                 <TextView v-model="claim" />
                 <Label text="Трек посылки" />
                 <TextField v-model="track_number" />
+                <Button text="Сохранить" @tap="saveDoc" />
                 <Button text="Отмена" @tap="cancel" />
-                <Button text="Отмена" @tap="saveDoc" />
             </StackLayout>
         </ScrollView>
     </Page>
@@ -44,8 +44,9 @@ export default {
             'docFilter',
             'saveDoc'
         ]),
-        cancel(){
-            console.log(this.datetime);
+        cancel(event){
+            // Очищаем форму и возвращаемся назад
+            this.$store.commit('resetForm');
             this.$router.push('/repair-list');
         } 
     },
@@ -59,7 +60,7 @@ export default {
         },
         call_to_client: {
             get(){
-                return this.$store.repair_doc.state.form.call_to_client;
+                return this.$store.state.repair_doc.form.call_to_client;
             },
             set(value){
                 this.$store.commit('changeFormValue', {param : 'call_to_client', val : value });
@@ -67,7 +68,7 @@ export default {
         },
         partner: {
             get(){
-                return this.$store.repair_doc.state.form.partner;
+                return this.$store.state.repair_doc.form.partner;
             },
             set(value){
                 this.$store.commit('changeFormValue', {param : 'partner', val : value });
@@ -75,7 +76,7 @@ export default {
         },
         client_name: {
             get(){
-                return this.$store.repair_doc.state.form.client_name;
+                return this.$store.state.repair_doc.form.client_name;
             },
             set(value){
                 this.$store.commit('changeFormValue', {param : 'client_name', val : value });
@@ -83,7 +84,7 @@ export default {
         },
         phone: {
             get(){
-                return this.$store.repair_doc.state.form.phone;
+                return this.$store.state.repair_doc.form.phone;
             },
             set(value){
                 this.$store.commit('changeFormValue', {param : 'phone', val : value });
@@ -91,7 +92,7 @@ export default {
         },
         product: {
             get(){
-                return this.$store.repair_doc.state.form.product;
+                return this.$store.state.repair_doc.form.product;
             },
             set(value){
                 this.$store.commit('changeFormValue', {param : 'product', val : value });
@@ -99,7 +100,7 @@ export default {
         },
         claim: {
             get(){
-                return this.$store.repair_doc.state.form.claim;
+                return this.$store.state.repair_doc.form.claim;
             },
             set(value){
                 this.$store.commit('changeFormValue', {param : 'claim', val : value });
@@ -107,7 +108,7 @@ export default {
         },
         track_number: {
             get(){
-                return this.$store.repair_doc.state.form.track_number;
+                return this.$store.state.repair_doc.form.track_number;
             },
             set(value){
                 this.$store.commit('changeFormValue', {param : 'track_number', val : value });
