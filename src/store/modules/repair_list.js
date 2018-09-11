@@ -4,13 +4,6 @@ const state = {
     status: "Все",
 };
 
-//Получаем отфильтрованые данные
-const getters = {
-    filterRepairList: state => {
-        return state.repair_list.filter(repair => repair.status_id == state.status_id);
-    }
-};
-
 const mutations = {
     changeStatus(state, status) {
         state.status = status;

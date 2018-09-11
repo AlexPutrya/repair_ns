@@ -22,9 +22,6 @@ export default {
         ...mapActions([
             'filter',
         ]),
-        newDocument() {
-            console.log("NewDocument");
-        }
     }
 };
 </script>
