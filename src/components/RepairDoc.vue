@@ -5,7 +5,7 @@
             <StackLayout>
                 <Label text="Дата/Время" />
                 <TextField editable="false" v-bind:text="datetime" />
-                <Button text="Статус" @tap="doc_filter"/>
+                <Button text="Статус" @tap="docFilter"/>
                 <Label text="Статус"/>
                 <TextField editable="false" v-bind:text="status" />
                 <Label text="Звонок клиенту" />
@@ -22,7 +22,8 @@
                 <TextView v-model="claim" />
                 <Label text="Трек посылки" />
                 <TextField v-model="track_number" />
-                <Button text="Отправить" @tap="send" />
+                <Button text="Отмена" @tap="cancel" />
+                <Button text="Отмена" @tap="saveDoc" />
             </StackLayout>
         </ScrollView>
     </Page>
@@ -35,20 +36,15 @@ import {mapActions} from 'vuex';
 export default {
     data() {
         return {
-            call_to_client: false,
-            partner: "",
-            client_name: "",
-            phone: "",
-            product: "",
-            claim: "",
-            track_number: ""
+
         }
     },
     methods: {
         ...mapActions([
-            'doc_filter'
+            'docFilter',
+            'saveDoc'
         ]),
-        send(){
+        cancel(){
             console.log(this.datetime);
             this.$router.push('/repair-list');
         } 
@@ -59,7 +55,63 @@ export default {
             return d;
         },
         status(){
-            return this.$store.state.repair_doc.status;
+            return this.$store.state.repair_doc.form.status;
+        },
+        call_to_client: {
+            get(){
+                return this.$store.repair_doc.state.form.call_to_client;
+            },
+            set(value){
+                this.$store.commit('changeFormValue', {param : 'call_to_client', val : value });
+            }
+        },
+        partner: {
+            get(){
+                return this.$store.repair_doc.state.form.partner;
+            },
+            set(value){
+                this.$store.commit('changeFormValue', {param : 'partner', val : value });
+            }
+        },
+        client_name: {
+            get(){
+                return this.$store.repair_doc.state.form.client_name;
+            },
+            set(value){
+                this.$store.commit('changeFormValue', {param : 'client_name', val : value });
+            }
+        },
+        phone: {
+            get(){
+                return this.$store.repair_doc.state.form.phone;
+            },
+            set(value){
+                this.$store.commit('changeFormValue', {param : 'phone', val : value });
+            }
+        },
+        product: {
+            get(){
+                return this.$store.repair_doc.state.form.product;
+            },
+            set(value){
+                this.$store.commit('changeFormValue', {param : 'product', val : value });
+            }
+        },
+        claim: {
+            get(){
+                return this.$store.repair_doc.state.form.claim;
+            },
+            set(value){
+                this.$store.commit('changeFormValue', {param : 'claim', val : value });
+            }
+        },
+        track_number: {
+            get(){
+                return this.$store.repair_doc.state.form.track_number;
+            },
+            set(value){
+                this.$store.commit('changeFormValue', {param : 'track_number', val : value });
+            }
         }
     }
 }

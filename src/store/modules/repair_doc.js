@@ -1,33 +1,44 @@
+import router from '../../router';
+
 const state = {
-    datetime: "",
-    status: "",
-    call_to_client: false,
-    partner_id: "",
-    client_name: "",
-    telephone: "",
-    product: "",
-    claim: "",
-    track_number: "",
-    status_list: ['отправлено', 'принято']
+    form: {
+        datetime: "",
+        status: "",
+        call_to_client: false,
+        partner: "",
+        client_name: "",
+        tel: "",
+        product: "",
+        claim: "",
+        track_number: "",
+        status_list: ['отправлено', 'принято']
+    }
 };
 
 const mutations = {
-    changeStatus(state, status) {
-        state.status = status;
+    changeFormValue(state, params){
+        this.state.form[params.param] = params.val; 
     }
 };
 
 const actions = {
-    doc_filter: ({commit, state}) => {
+    docFilter: ({commit, state}) => {
         action('Статус:', 'Отмена', state.status_list)
             .then(result => {
                 if(result != "Отмена"){
-                    commit('changeStatus', result);
+                    commit('changeFormValue', {param:'status', val: result});
                 }else {
                     console.log(result);
                 }
             });
-        }
+    },
+    saveDoc: ({commit, state}) => {
+        //отправляем запрос на сохранение в бд
+        //.then(
+        // router.push('/repair_list');
+        // )
+        // .error(
+    }
 }
 
 export default {

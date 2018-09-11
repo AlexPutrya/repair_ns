@@ -5,6 +5,13 @@
             <Button text="Создать" @tap="$router.push('/repair-doc')" />
             <Button text="Фильтр" @tap="filter" />
             <Label v-bind:text="status" height="70" />
+            <ListView for="repair in repairList">
+                <v-template>
+                    <Label :text="repair.date"/>
+                    <Label :text="repair.product"/>
+                    <Label :text="repair.claim"/>
+                </v-template>
+            </ListView>
         </StackLayout>
     </Page>
 </template>
@@ -21,6 +28,7 @@ export default {
     methods: {
         ...mapActions([
             'filter',
+            'repairList'
         ]),
     }
 };
