@@ -47,12 +47,14 @@ export default {
         cancel(event){
             // Очищаем форму и возвращаемся назад
             this.$store.commit('resetForm');
+            this.$store.dispatch('query');
             this.$router.push('/repair-list');
         } 
     },
      computed: {
         datetime(){
-            let d =new Date();
+            // let d =new Date();
+            let d = '11.02.2018';
             return d;
         },
         status(){

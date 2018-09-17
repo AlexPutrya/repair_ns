@@ -50,7 +50,9 @@ const actions = {
                 }
             });
     },
-    saveDoc: ({commit, state}) => {
+    saveDoc: ({commit, state, dispatch}) => {
+        // используем dispatch для вызова действия из другого модуля
+        dispatch('insert', state.form);
         //отправляем запрос на сохранение в бд
         //.then(
         // router.push('/repair_list');
