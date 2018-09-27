@@ -4,10 +4,10 @@
         <StackLayout>
             <Button text="Создать" @tap="$router.push('/repair-doc')" />
             <DockLayout class="filter">
-                <Button dock="left" text="Фильтр" @tap="filter" />
+                <Button dock="left" text="Фильтр" @tap="changeFilter" />
                 <Label v-bind:text="status"/>
             </DockLayout>
-            <ListView for="repair in repairList">
+            <ListView for="repair in filteredList">
                 <v-template>
                     <StackLayout  class="list-group-item">
                         <Label :text="repair.date"/>
@@ -28,7 +28,7 @@ import { mapGetters } from 'vuex';
 export default {
     computed: {
         ...mapGetters([
-            'repairList'
+            'filteredList'
         ]),
         status(){
             return this.$store.state.repair_list.status;
@@ -36,13 +36,18 @@ export default {
     },
     methods: {
         ...mapActions([
-            'filter'
+            'changeFilter'
         ])
     }
 };
 </script>
 
 <style scoped>
+.action-bar{
+    background-color: #f28500;
+    color: white;
+}
+
 .filter Button {
     background-color: steelblue;
     padding: 20px;

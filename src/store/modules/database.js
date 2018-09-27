@@ -8,21 +8,21 @@ const mutations = {
     init(state, data) {
         state.database = data.database;
     },
-    load(state, data) {
-        state.data = [];
-        for(var i = 0; i < data.data.length; i++) {
-            state.data.push({
-                firstname: data.data[i][0],
-                lastname: data.data[i][1]
-            });
-        }
-    },
-    save(state, data) {
-        state.data.push({
-            firstname: data.data.firstname,
-            lastname: data.data.lastname
-        });
-    },
+    // load(state, data) {
+    //     state.data = [];
+    //     for(var i = 0; i < data.data.length; i++) {
+    //         state.data.push({
+    //             firstname: data.data[i][0],
+    //             lastname: data.data[i][1]
+    //         });
+    //     }
+    // },
+    // save(state, data) {
+    //     state.data.push({
+    //         firstname: data.data.firstname,
+    //         lastname: data.data.lastname
+    //     });
+    // },
 }
 
 const actions = {
@@ -49,23 +49,23 @@ const actions = {
             console.log("OPEN DB ERROR", error);
         });
     },
-    insert(context, data) {
-        context.state.database.execSQL("\
-            INSERT INTO documents (datetime, status, call_to_client, partner, client_name, tel, product, claim, track_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            [data.datetime, data.status, data.call_to_client, data.partner, data.client_name, data.tel, data.product, data.claim, data.track_number ]).then(id => {
-            // context.commit("save", { data: data });
-        }, error => {
-            console.log("INSERT ERROR", error);
-        });
-    },
-    query(context) {
-        context.state.database.all("SELECT * FROM documents", []).then(result => {
-            console.log(result);
-            // context.commit("load", { data: result });
-        }, error => {
-            console.log("SELECT ERROR", error);
-        });
-    }
+    // insert(context, data) {
+    //     context.state.database.execSQL("\
+    //         INSERT INTO documents (datetime, status, call_to_client, partner, client_name, tel, product, claim, track_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    //         [data.datetime, data.status, data.call_to_client, data.partner, data.client_name, data.tel, data.product, data.claim, data.track_number ]).then(id => {
+    //         // context.commit("save", { data: data });
+    //     }, error => {
+    //         console.log("INSERT ERROR", error);
+    //     });
+    // },
+    // query(context) {
+    //     context.state.database.all("SELECT * FROM documents", []).then(result => {
+    //         console.log(result);
+    //         // context.commit("load", { data: result });
+    //     }, error => {
+    //         console.log("SELECT ERROR", error);
+    //     });
+    // }
 }
 
 export default{

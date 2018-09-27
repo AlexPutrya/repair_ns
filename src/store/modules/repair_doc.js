@@ -39,14 +39,12 @@ const mutations = {
 };
 
 const actions = {
-    docFilter: ({commit, state}) => {
-        console.log('action'),
+    //меняем статус документа
+    changeStatus: ({commit, state}) => {
         action('Статус:', 'Отмена', state.form.status_list)
             .then(result => {
                 if(result != "Отмена"){
                     commit('changeFormValue', {param:'status', val: result});
-                }else {
-                    console.log(result);
                 }
             });
     },

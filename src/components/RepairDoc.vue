@@ -5,7 +5,7 @@
             <StackLayout>
                 <Label text="Дата/Время" />
                 <TextField editable="false" :text="datetime" />
-                <Button text="Статус" @tap="docFilter"/>
+                <Button text="Статус" @tap="changeStatus"/>
                 <Label text="Статус"/>
                 <TextField editable="false" :text="status" />
                 <Label text="Звонок клиенту" />
@@ -15,14 +15,14 @@
                 <Label text="Клиент" />
                 <TextField v-model="client_name" />
                 <Label text="Номер телефона" />
-                <TextField v-model="phone"  keyboardType="phone"/>
+                <TextField v-model="phone" keyboardType="phone"/>
                 <Label text="Товар" />
                 <TextField v-model="product" />
                 <Label text="Претензия" />
                 <TextView v-model="claim" />
                 <Label text="Трек посылки" />
                 <TextField v-model="track_number" />
-                <Button text="Сохранить" @tap="saveDoc" />
+                <Button text="Сохранить" class="save" @tap="saveDoc" />
                 <Button text="Отмена" @tap="cancel" />
             </StackLayout>
         </ScrollView>
@@ -41,13 +41,12 @@ export default {
     },
     methods: {
         ...mapActions([
-            'docFilter',
+            'changeStatus',
             'saveDoc'
         ]),
         cancel(event){
             // Очищаем форму и возвращаемся назад
             this.$store.commit('resetForm');
-            this.$store.dispatch('query');
             this.$router.push('/repair-list');
         } 
     },
@@ -121,5 +120,8 @@ export default {
 </script>
 
 <style scoped>
-
+.action-bar{
+    background-color: #f28500;
+    color: white;
+}
 </style>
