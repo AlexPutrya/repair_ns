@@ -1,25 +1,27 @@
 const state = {
-    list: [],
+    repair_list: [],
     status_list: ['Отправлен', 'Принят', 'Закрыт', 'Не завершен'],
-    status: "Не завершен",
+    filter: {
+        status: "Принят",
+    }
 };
 
 const getters = {
     // Возвращаем отфильтрованный список
     filteredList(){
-        return state.list.filter(repair => state.status == repair.status);
+        return state.repair_list.filter(repair => state.filter.status == repair.status);
     }
 }
 
 const mutations = {
     // Устанавливаем статус из списка
-    changeStatus(state, status) {
-        state.status = status;
+    setStatus(state, status) {
+        state.filter.status = status;
     },
-    // Создаем список полученый из бд {key: value}
-    setDataToList(state, data){
+    // Создаем ассоциативный массив из списка полученогой из бд {key: value}
+    setRepairList(state, data){
         for(let i = 0; i < data.length; i++) {
-            state.list.push({
+            state.repair_list.push({
                 id: data[i][0],
                 datetime: data[i][1],
                 status: data[i][2],
@@ -32,7 +34,10 @@ const mutations = {
                 track_number: data[i][9],
             });
         }
-        console.log(state.list);
+    },
+    // Добавляем в список данные после сохранения нового документа
+    addToList(state, data){
+        state.repair_list.push(data);
     }
 };
 
@@ -42,7 +47,7 @@ const actions = {
         action('Статус:', 'Отмена', state.status_list)
             .then(result => {
                 if(result != "Отмена"){
-                    commit('changeStatus', result);
+                    commit('setStatus', result);
                 }else {
                     console.log(result);
                 }
@@ -51,7 +56,7 @@ const actions = {
     // Получем данные из базы, вызывааем мутацию в случае успеха
     loadRepairList({commit, state, rootState}){
         rootState.database.database.all("SELECT * FROM documents", []).then(result => {
-            commit('setDataToList', result);
+            commit('setRepairList', result);
         }, error => {
             console.log("SELECT ERROR", error);
         });

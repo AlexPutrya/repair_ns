@@ -4,7 +4,15 @@
     // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
+        {
+            "name": "Launch on Android",
+            "type": "nativescript",
+            "request": "launch",
+            "platform": "android",
+            "appRoot": "${workspaceRoot}",
+            "sourceMaps": true,
+            "watch": true
+        },
         {
             "name": "Launch on iOS",
             "type": "nativescript",
@@ -39,7 +47,8 @@
             "watch": true,
             "sourceMapPathOverrides": {
                 "webpack:///*": "${workspaceRoot}/app/*"
-            }
+            },
+            "tnsArgs":["--bundle"]
         },
         {
             "name": "Attach on Android",

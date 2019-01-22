@@ -2,7 +2,9 @@
     <Page class="page">
         <ActionBar title="Ремонт+" class="action-bar" />
         <ScrollView>
+            
             <StackLayout class="home-panel" verticalAlignment="center" horizontalAlignment="stretch">
+                <!-- <Image src="res://icon" stretch="none"/> -->
                 <Button class="btn" text="Ремонты" @tap="repairList" />
             </StackLayout>
         </ScrollView>
@@ -12,15 +14,12 @@
 <script>
 export default {
     methods: {
+        // Вызывем загрузку списка из бвзы данных и переходим в новое окно
         repairList(){
             this.$store.dispatch('loadRepairList');
             this.$router.push('/repair-list');
         }
-    },
-
-    data() {
-        return {};
-    },
+    }
 }
 </script>
 

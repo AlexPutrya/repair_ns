@@ -34,17 +34,18 @@
 import {mapActions} from 'vuex';
 
 export default {
-    data() {
-        return {
-
-        }
-    },
     methods: {
         ...mapActions([
             'changeStatus',
-            'saveDoc'
+            // 'saveDoc'
         ]),
-        cancel(event){
+        // Вызываем сохранение данных закрываем окно
+        saveDoc(){
+            this.$store.dispatch('saveDoc');
+            this.$router.push('/repair-list');
+        },
+        // Отмена создания или изменения документа
+        cancel(){
             // Очищаем форму и возвращаемся назад
             this.$store.commit('resetForm');
             this.$router.push('/repair-list');

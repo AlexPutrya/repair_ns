@@ -16,7 +16,7 @@ const state = {
 };
 
 const mutations = {
-    // Меняем состояние по значению параметра 
+    // Меняем состояние полей формы setter
     changeFormValue(state, params){
         state.form[params.param] = params.val;
     },
@@ -39,7 +39,7 @@ const mutations = {
 };
 
 const actions = {
-    //меняем статус документа
+    //Диалоговое окно для выбора статуса
     changeStatus: ({commit, state}) => {
         action('Статус:', 'Отмена', state.form.status_list)
             .then(result => {
@@ -48,14 +48,25 @@ const actions = {
                 }
             });
     },
-    saveDoc: ({commit, state, dispatch}) => {
-        // используем dispatch для вызова действия из другого модуля
-        dispatch('insert', state.form);
-        //отправляем запрос на сохранение в бд
-        //.then(
-        // router.push('/repair_list');
-        // )
-        // .error(
+    // Сохраняем данные в бд
+    saveDoc: ({commit, state, rootState, dispatch}) => {
+        rootState.database.database.execSQL("INSERT INTO documents (datetime, status, call_to_client, partner, client_name, tel, product, claim, track_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",[
+                state.form.datetime,
+                state.form.status,
+                state.form.call_to_client,
+                state.form.partner,
+                state.form.client_name,
+                state.form.tel,
+                state.form.product,
+                state.form.claim,
+                state.form.track_number ])
+                    .then(id => {
+                        let repair = {id: id, ...state.form};
+                        commit('addToList', repair);
+                        commit('resetForm');
+                    }, error => {
+                        console.log("INSERT ERROR", error);
+                    });
     }
 }
 
